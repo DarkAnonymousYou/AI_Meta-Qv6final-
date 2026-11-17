@@ -1,0 +1,161 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 6: ALL-MARKET CRASH SCANNER & CASH BUCKET PLANNER -->
+    <!-- ========================================================================= -->
+    <section id="view-scanner" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">All-Market Crash Scanner & L3 Surge Terminal</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">Multi-asset drawdown radar enforcing Guardrail 3 (40% quiet pool borrowing) & Guardrail 4 (overweight brake)</p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <button onclick="simulateCrashScenario('mega')" class="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-mono font-bold transition shadow-sm">
+            Simulate 2020 Mega-Crash
+          </button>
+          <button onclick="simulateCrashScenario('mild')" class="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold transition shadow-sm">
+            Simulate Mild Dip
+          </button>
+        </div>
+      </div>
+
+      <!-- Tactical Cash Bucket Planner Card -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Tactical Cash Bucket Planner</h3>
+            </div>
+            <p class="text-xs text-carbon-400 mt-0.5">Split deployment capital into the 5 V6 buckets and preview exact L1 (30%), L2 (60% rem = 42%), and L3 (100% rem = 28%) deployment tranches</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="loadBucketPlannerCapital('warchest')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 text-emerald-400 border border-carbon-700 text-xs font-mono font-semibold transition shadow-sm">
+              War-Chest
+            </button>
+            <button onclick="loadBucketPlannerCapital(25000)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 text-carbon-300 border border-carbon-700 text-xs font-mono font-semibold transition shadow-sm">
+              ₹25,000
+            </button>
+            <button onclick="loadBucketPlannerCapital(50000)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 text-carbon-300 border border-carbon-700 text-xs font-mono font-semibold transition shadow-sm">
+              ₹50,000
+            </button>
+            <button onclick="loadBucketPlannerCapital(100000)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 text-carbon-300 border border-carbon-700 text-xs font-mono font-semibold transition shadow-sm">
+              ₹1,00,000
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="relative w-full sm:w-80">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-carbon-400 font-mono text-xs font-bold">₹</span>
+            <input type="number" id="bucket-planner-capital" step="any" min="0" placeholder="100000"
+              oninput="updateBucketPlannerView()"
+              class="w-full bg-carbon-850 border border-carbon-700 rounded-lg pl-8 pr-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+          </div>
+          <span class="text-xs text-carbon-400 font-mono">Total Capital to Allocate across 5 ETF Buckets</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">ETF Ticker</th>
+                <th class="py-3 px-3 font-sans font-semibold">Underlying Index</th>
+                <th class="py-3 px-3 font-semibold text-right">Target Weight</th>
+                <th class="py-3 px-3 font-semibold text-right text-white">Bucket Cash (₹)</th>
+                <th class="py-3 px-3 font-semibold text-right text-emerald-400">L1 Dip Tranche (30%)</th>
+                <th class="py-3 px-3 font-semibold text-right text-amber-400">L2 Crash Tranche (42%)</th>
+                <th class="py-3 px-4 font-semibold text-right text-rose-400">L3 Mega Tranche (28%)</th>
+              </tr>
+            </thead>
+            <tbody id="bucket-planner-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via updateBucketPlannerView() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5-ETF Drawdown Radar Table (100% Index-Driven, NO ETF Price Clutter) -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Live Drawdown Matrix & Crash Thresholds</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">Edit Index ATH or Live Index Price to simulate any market scenario (100% Index-Driven)</p>
+          </div>
+          <span class="text-xs font-mono text-carbon-400">5-ETF Valuation Radar</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">ETF Ticker</th>
+                <th class="py-3 px-3 font-semibold text-right">Saved Index ATH</th>
+                <th class="py-3 px-3 font-semibold text-right">Live Index Price</th>
+                <th class="py-3 px-3 font-semibold text-right">Drawdown %</th>
+                <th class="py-3 px-3 font-semibold text-center">Tranche Trigger</th>
+                <th class="py-3 px-4 font-semibold text-center">L3 Asymmetric Score</th>
+              </tr>
+            </thead>
+            <tbody id="crash-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via updateCrashScannerView() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Guardrail 3 Asymmetric Quiet-Pool Surge Breakdown -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Guardrail 3: Cross-Pool Surge Breakdown</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">40% idle cash borrowed ONLY from quiet buckets (drop &lt; 8.0%) and re-routed to deepest L3 discounts</p>
+          </div>
+          <span id="quiet-pool-total-badge" class="text-xs font-mono text-cyan-400 font-bold tabular-nums">
+            Quiet Pool: ₹0
+          </span>
+        </div>
+
+        <div id="crash-math-breakdown" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <!-- Populated dynamically via updateCrashScannerView() -->
+        </div>
+      </div>
+
+      <!-- Consolidated Crash Order Sheet (Clean Exact Rupee Orders) -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Consolidated Crash Execution Order Sheet</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">Aggregated multi-ETF buy orders with exact deployment amounts per bucket</p>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <span id="order-sheet-total-deploy" class="text-sm font-mono font-bold text-emerald-400 tabular-nums">
+              Total Order: ₹0
+            </span>
+            <button onclick="copyCrashOrderSheet()" class="px-3.5 py-1.5 rounded-lg bg-carbon-850 hover:bg-carbon-800 text-carbon-200 border border-carbon-700 text-xs font-mono font-semibold flex items-center gap-2 transition shadow-sm">
+              <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copy Order Sheet</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">ETF Ticker</th>
+                <th class="py-3 px-3 font-sans font-semibold">Trigger Level</th>
+                <th class="py-3 px-3 font-semibold text-right">Own Tranche (₹)</th>
+                <th class="py-3 px-3 font-semibold text-right text-cyan-400 font-bold">Quiet Surge (₹)</th>
+                <th class="py-3 px-3 font-semibold text-right text-emerald-400 font-bold">Total Deploy (₹)</th>
+                <th class="py-3 px-4 font-semibold text-right">Execution Action</th>
+              </tr>
+            </thead>
+            <tbody id="crash-order-sheet-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via renderCrashOrderSheet() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>

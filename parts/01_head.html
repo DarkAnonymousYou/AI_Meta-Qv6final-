@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>AI Meta-Q V6 Final — Institutional Quantitative ETF Platform</title>
+  
+  <!-- PWA & Mobile Meta Tags -->
+  <meta name="theme-color" content="#09090b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Meta-Q V6" />
+  <meta name="description" content="AI Meta-Q V6 Final — Bespoke Quantitative 5-ETF Portfolio Intelligence Platform, 21.5Y Backtest Simulator, and Asymmetric Crash-Deployment Terminal" />
+  
+  <!-- Web App Manifest & App Icons -->
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22AI%20Meta-Q%20V6%20Final%22%2C%22short_name%22%3A%22Meta-Q%20V6%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2309090b%22%2C%22theme_color%22%3A%22%2309090b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%3E%3Crect%20width%3D'512'%20height%3D'512'%20rx%3D'128'%20fill%3D'%2309090b'%2F%3E%3Cpath%20d%3D'M120%20360L210%20180L280%20270L390%20130'%20stroke%3D'%2310b981'%20stroke-width%3D'36'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%20fill%3D'none'%2F%3E%3Ccircle%20cx%3D'390'%20cy%3D'130'%20r%3D'24'%20fill%3D'%2338bdf8'%2F%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%2309090b'/%3E%3Cpath d='M120 360L210 180L280 270L390 130' stroke='%2310b981' stroke-width='36' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='390' cy='130' r='24' fill='%2338bdf8'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%2309090b'/%3E%3Cpath d='M120 360L210 180L280 270L390 130' stroke='%2310b981' stroke-width='36' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='390' cy='130' r='24' fill='%2338bdf8'/%3E%3C/svg%3E" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            carbon: {
+              950: '#09090b', // Base Canvas
+              900: '#111114', // Elevated Cards
+              850: '#151518', // Input / Sub-surface
+              800: '#1a1a1f', // Hover / Interactive
+              700: '#222226', // Hairline Border
+              600: '#2c2c33', // Active Border
+              500: '#52525b', // Muted Text
+              400: '#a1a1aa', // Secondary Text
+              300: '#d4d4d8', // Tertiary Text
+              100: '#f4f4f5'  // Primary Headline
+            },
+            accent: {
+              emerald: '#10b981',
+              cyan: '#06b6d4',
+              amber: '#f59e0b',
+              rose: '#ef4444',
+              indigo: '#6366f1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* Institutional Terminal Styling */
+    body {
+      background-color: #09090b;
+      background-image: 
+        radial-gradient(circle 900px at 50% -140px, rgba(16, 185, 129, 0.045), transparent 70%),
+        radial-gradient(circle 600px at 95% 350px, rgba(6, 182, 212, 0.025), transparent 65%);
+      background-attachment: fixed;
+      color: #f4f4f5;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Tabular Numbers for Data Alignment */
+    .font-mono, td.tabular, span.tabular, .tabular-nums {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Hairline Fin-Card System with Physical Depth */
+    .hairline-card {
+      background-color: #111114;
+      border: 1px solid #222226;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+      transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hairline-card:hover {
+      border-color: #2c2c33;
+    }
+
+    .hairline-card-elevated {
+      background-color: #151518;
+      border: 1px solid #27272a;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 4px 14px -2px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Custom Input Focus State */
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #10b981 !important;
+      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+    }
+
+    /* Subtle Smooth Range Sliders */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #1e1e24;
+      height: 6px;
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.15s ease;
+    }
+    input[type=range]:hover {
+      background: #27272f;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10b981;
+      cursor: pointer;
+      border: 2px solid #09090b;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      transition: transform 0.1s ease, background-color 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      background: #34d399;
+    }
+
+    /* Custom Hairline Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #09090b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #222226;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2c2c33;
+    }
+
+    /* Active Nav Tab State */
+    .nav-tab-active {
+      background-color: #1a1a1f !important;
+      color: #10b981 !important;
+      border-color: #2c2c33 !important;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Institutional Light Mode Theme Overrides */
+    html.light body {
+      background-color: #f8fafc;
+      background-image: 
+        radial-gradient(circle 900px at 50% -140px, rgba(16, 185, 129, 0.08), transparent 70%),
+        radial-gradient(circle 600px at 95% 350px, rgba(6, 182, 212, 0.05), transparent 65%);
+      color: #0f172a;
+    }
+    html.light .hairline-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    }
+    html.light .hairline-card:hover {
+      border-color: #cbd5e1;
+    }
+    html.light .hairline-card-elevated {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    html.light .bg-carbon-950 { background-color: #f8fafc !important; }
+    html.light .bg-carbon-900 { background-color: #ffffff !important; }
+    html.light .bg-carbon-850 { background-color: #f1f5f9 !important; }
+    html.light .bg-carbon-800 { background-color: #e2e8f0 !important; }
+    html.light .bg-carbon-700 { background-color: #cbd5e1 !important; }
+    html.light .border-carbon-700 { border-color: #e2e8f0 !important; }
+    html.light .border-carbon-800 { border-color: #e2e8f0 !important; }
+    html.light .border-carbon-600 { border-color: #cbd5e1 !important; }
+    html.light .text-white { color: #0f172a !important; }
+    html.light .text-carbon-100 { color: #0f172a !important; }
+    html.light .text-carbon-200 { color: #1e293b !important; }
+    html.light .text-carbon-300 { color: #334155 !important; }
+    html.light .text-carbon-400 { color: #64748b !important; }
+    html.light .text-carbon-500 { color: #94a3b8 !important; }
+    html.light input:not([type=range]):not([type=checkbox]), html.light select {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+    html.light .nav-tab-active {
+      background-color: #e2e8f0 !important;
+      color: #059669 !important;
+      border-color: #cbd5e1 !important;
+    }
+    html.light input[type=range] {
+      background: #e2e8f0;
+    }
+    html.light input[type=range]::-webkit-slider-thumb {
+      border: 2px solid #ffffff;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-carbon-950 text-carbon-100 flex flex-col selection:bg-emerald-500/20 selection:text-emerald-300">

@@ -1,0 +1,181 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 4: PORTFOLIO BALANCER & REBALANCING RADAR (EQUITY-ONLY DENOMINATOR) -->
+    <!-- ========================================================================= -->
+    <section id="view-balancer" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <!-- Section Header -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">Live Portfolio Balancer & Rebalancing Radar</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">100% Equity-Only Weight Balancing & Guardrail 4 Overweight Brakes (Sum of 5 ETFs = 100%)</p>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold uppercase tracking-wider">
+          Guardrail 4 Active
+        </span>
+      </div>
+
+      <!-- Top Summary KPIs (4 Stat Cards) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div class="hairline-card rounded-2xl p-4 sm:p-5 space-y-1.5">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase tracking-wider font-semibold">Total Invested Equity</div>
+          <div id="balancer-total-equity" class="text-xl sm:text-2xl font-bold font-mono text-white tracking-tight tabular-nums">₹0</div>
+          <div class="text-[10px] text-carbon-500 font-mono">100% Allocation Denominator</div>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-4 sm:p-5 space-y-1.5">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase tracking-wider font-semibold">Deployable Liquid Cash</div>
+          <div id="balancer-total-cash" class="text-xl sm:text-2xl font-bold font-mono text-emerald-400 tracking-tight tabular-nums">₹0</div>
+          <div class="text-[10px] text-emerald-500/80 font-mono">War-Chest + Fresh Capital</div>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-4 sm:p-5 space-y-1.5">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase tracking-wider font-semibold">Grand Total Portfolio</div>
+          <div id="balancer-grand-total" class="text-xl sm:text-2xl font-bold font-mono text-cyan-400 tracking-tight tabular-nums">₹0</div>
+          <div class="text-[10px] text-carbon-500 font-mono">Total Equity + Total Cash</div>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-4 sm:p-5 space-y-1.5">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase tracking-wider font-semibold">Portfolio Equilibrium</div>
+          <div id="balancer-guardrail4-status" class="text-xs sm:text-sm font-bold font-mono text-carbon-200 tracking-tight flex items-center gap-1.5 pt-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Balanced</span>
+          </div>
+          <div class="text-[10px] text-carbon-500 font-mono">Guardrail 4: +8% Overweight Brake</div>
+        </div>
+      </div>
+
+      <!-- Ranked Buying Priority Queue (PROMINENTLY AT TOP) -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Ranked Capital Deployment Priority (#1 BUY, #2 BUY, #3 BUY)</h3>
+            </div>
+            <p class="text-xs text-carbon-400 mt-0.5">Top-down allocation deficit ranking based on 100% invested equity to restore target portfolio equilibrium</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm font-bold">
+            Live Rebalancing Queue
+          </span>
+        </div>
+
+        <div id="buying-priority-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Populated dynamically via updatePortfolioView() -->
+        </div>
+      </div>
+
+      <!-- Holdings Inputs & Cash Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+        
+        <!-- Live Holdings Input Card (Left 2 cols) -->
+        <div class="lg:col-span-2 hairline-card rounded-2xl p-6 sm:p-7 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Current ETF Holdings (₹ Invested Value)</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Enter invested rupee value per ETF. Supports full 2-decimal paisa precision.</p>
+            </div>
+            <span class="text-xs font-mono text-carbon-400">Auto-persisted to LocalStorage</span>
+          </div>
+
+          <div id="holdings-input-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Populated dynamically via renderHoldingsInputs() -->
+          </div>
+        </div>
+
+        <!-- Cash War-Chest & Fresh Capital (Right 1 col) -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+          <div class="space-y-5">
+            <div class="flex items-center justify-between pb-3 border-b border-carbon-700/80">
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Deployable Reserves</h3>
+              <span class="text-xs font-mono text-emerald-400 font-bold">Liquid Reserves</span>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Cash War-Chest (Liquid Fund)</span>
+                <span class="text-[11px] text-carbon-500">Reserved Cash</span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-carbon-400 font-mono text-xs font-bold">₹</span>
+                <input type="number" id="input-cash-reserve" min="0" step="any" placeholder="0"
+                  oninput="handlePortfolioInput()"
+                  class="w-full bg-carbon-850 border border-carbon-700 rounded-lg pl-8 pr-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Fresh Capital Addition</span>
+                <span class="text-[11px] text-carbon-500">New Inflow</span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-carbon-400 font-mono text-xs font-bold">₹</span>
+                <input type="number" id="input-fresh-capital" min="0" step="any" placeholder="0"
+                  oninput="handlePortfolioInput()"
+                  class="w-full bg-carbon-850 border border-carbon-700 rounded-lg pl-8 pr-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-carbon-850/90 border border-carbon-700/80 space-y-2 text-xs font-mono shadow-sm">
+            <div class="text-[11px] text-carbon-400 font-sans leading-relaxed">
+              Note: Cash reserves are strictly preserved for Tactical Sniper, Crash Scanner, and Bucket Deployments and are <strong class="text-carbon-200">never included</strong> in portfolio weighting calculations.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Current vs Target Weight Chart & Rebalance Gap Table -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+        
+        <!-- Chart.js Allocation Comparison -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Allocation Breakdown (100% Equity)</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Live Weight vs LOCKED V6 Target Weight</p>
+            </div>
+            
+            <div class="inline-flex rounded-lg bg-carbon-850 p-1 border border-carbon-700 text-xs font-mono shadow-sm">
+              <button onclick="setBalancerChartType('bar')" id="chart-toggle-bar" class="px-3 py-1 rounded bg-carbon-800 text-white font-bold">Bar</button>
+              <button onclick="setBalancerChartType('doughnut')" id="chart-toggle-doughnut" class="px-3 py-1 rounded text-carbon-400 hover:text-white">Doughnut</button>
+            </div>
+          </div>
+
+          <div class="h-72 sm:h-80 w-full relative">
+            <canvas id="balancerChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Rebalancing Gap Analysis Table -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Rebalancing Gap Analysis</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Real-time drift detection and Guardrail 4 brake indicators</p>
+            </div>
+            <span class="text-xs font-mono text-carbon-400">5-ETF Breakdown</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+            <table class="w-full text-left text-xs font-mono border-collapse">
+              <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+                <tr>
+                  <th class="py-3 px-4 font-sans font-semibold">ETF</th>
+                  <th class="py-3 px-3 font-semibold text-right">Target</th>
+                  <th class="py-3 px-3 font-semibold text-right">Current</th>
+                  <th class="py-3 px-3 font-semibold text-right">Drift</th>
+                  <th class="py-3 px-4 font-sans font-semibold text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="rebalance-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+                <!-- Populated dynamically via updatePortfolioView() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section>

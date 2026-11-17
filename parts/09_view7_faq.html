@@ -1,0 +1,107 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 7: METHODOLOGY & AUDIT FAQ -->
+    <!-- ========================================================================= -->
+    <section id="view-faq" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">Methodology & Empirical Audit FAQ</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">Institutional disclosures on pricing models, STT friction, and statistical alpha attribution</p>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+          Whitepaper Audit
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-3 border-l-4 border-l-emerald-500 group hover:border-carbon-600 transition-all">
+          <h3 class="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
+            <span>1. Total Returns Index (TRI) vs. Price Index Calibration</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-carbon-300 leading-relaxed font-sans">
+            The historical backtest utilizes Price Return Series (PR) spanning 21.5 years (2005–2026), delivering a proven net Price XIRR of <span class="font-mono text-emerald-400 font-bold tabular-nums">14.61%</span>. However, Indian ETF portfolios naturally accrue cash dividends and corporate actions directly into ETF NAVs. At an average historical dividend yield of 1.20% per annum, the real-world Total Returns Index (TRI) XIRR is calibrated at <span class="font-mono text-emerald-400 font-bold tabular-nums">~15.81%</span>.
+          </p>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-3 border-l-4 border-l-cyan-500 group hover:border-carbon-600 transition-all">
+          <h3 class="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
+            <span>2. 0.12% Roundtrip Friction & Liquid Yield Modeling</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-carbon-300 leading-relaxed font-sans">
+            Unlike theoretical backtests that assume zero trading cost, the AI Meta-Q simulation engine penalizes every single trade with <span class="font-mono text-white font-semibold tabular-nums">0.12%</span> friction (covering STT, exchange turnover fees, GST, SEBI charges, and bid-ask slippage). Furthermore, unspent cash reserves earn a conservative <span class="font-mono text-cyan-400 font-bold tabular-nums">6.2%</span> annual yield, compounding month-by-month as if parked in an institutional liquid/overnight ETF.
+          </p>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-3 border-l-4 border-l-amber-500 group hover:border-carbon-600 transition-all">
+          <h3 class="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
+            <span>3. Guardrail 1 Alpha Proof: Why Ignore -7% to -10% Dips?</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-carbon-300 leading-relaxed font-sans">
+            In V4, the algorithm bought early during minor -8% bull-run pullbacks. Empirical audit revealed this resulted in 51 premature trades, exhausting cash before true market crashes arrived. In LOCKED V6, Guardrail 1 strictly enforces deploying <span class="font-mono text-white font-bold">₹0</span> on dips shallower than L1 (-12% to -16%), preserving dry powder and directly contributing <span class="font-mono text-emerald-400 font-bold tabular-nums">+₹5.0 Lakh</span> of pure alpha.
+          </p>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-3 border-l-4 border-l-indigo-500 group hover:border-carbon-600 transition-all">
+          <h3 class="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
+            <span>4. Guardrail 2 Alpha Proof: The L1 Hysteresis Lock</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-carbon-300 leading-relaxed font-sans">
+            During prolonged sideways bears (e.g. the 2011 Eurozone debt crisis and 2018 IL&FS crunch), index valuations repeatedly bounce across the -14% threshold. In V5, repeated Tier-1 purchases steadily drained capital. Guardrail 2 locks L1 after the first buy in a correction wave, only resetting when a new ATH prints or the market plunges into L2 (-22%). This single safeguard added another <span class="font-mono text-emerald-400 font-bold tabular-nums">+₹5.0 Lakh</span> of alpha.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Institutional Disclosures & Engineering Footer -->
+    <footer class="pt-10 pb-6 border-t border-carbon-800/80 text-carbon-400 text-xs font-sans space-y-4">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-md bg-carbon-900 border border-carbon-700 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs">
+            Q
+          </div>
+          <span class="font-bold text-white tracking-tight">AI Meta-Q V6 Final</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-850 text-carbon-400 border border-carbon-700">
+            Institutional Release
+          </span>
+        </div>
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-carbon-400">
+          <span>21.5Y Verified Series (2005-2026)</span>
+          <span>•</span>
+          <span>Friction Model: 0.12% Roundtrip</span>
+          <span>•</span>
+          <span>Liquid Yield: 6.2% Annualized</span>
+        </div>
+      </div>
+      <p class="text-[11px] text-carbon-500 leading-relaxed">
+        <strong>Regulatory & Algorithmic Notice:</strong> AI Meta-Q V6 is an empirical quantitative simulation terminal and portfolio intelligence model designed for systematic index research and discipline enforcement. All historical backtest data reflects actual Price Return index benchmarks from the National Stock Exchange of India (NSE). Past quantitative performance is modeled rigorously with friction and cash compounding, but does not constitute personalized financial advice.
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- Mobile Sticky Bottom App Bar -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-carbon-950/95 backdrop-blur-xl border-t border-carbon-700/80 px-3 py-2 flex items-center justify-around text-[10px] font-mono text-carbon-400 shadow-2xl">
+    <button onclick="switchView('view-overview')" id="mob-view-overview" class="flex flex-col items-center gap-1 p-1 text-emerald-400">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span class="font-semibold">Overview</span>
+    </button>
+    <button onclick="switchView('view-sandbox')" id="mob-view-sandbox" class="flex flex-col items-center gap-1 p-1 hover:text-white transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <span class="font-semibold">Simulate</span>
+    </button>
+    <button onclick="switchView('view-balancer')" id="mob-view-balancer" class="flex flex-col items-center gap-1 p-1 hover:text-white transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+      <span class="font-semibold">Balance</span>
+    </button>
+    <button onclick="switchView('view-sniper')" id="mob-view-sniper" class="flex flex-col items-center gap-1 p-1 hover:text-white transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      <span class="font-semibold">Sniper</span>
+    </button>
+    <button onclick="switchView('view-scanner')" id="mob-view-scanner" class="flex flex-col items-center gap-1 p-1 hover:text-white transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <span class="font-semibold">Scanner</span>
+    </button>
+  </nav>

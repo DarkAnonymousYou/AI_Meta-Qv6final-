@@ -1,0 +1,172 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 5: SINGLE-INDEX TACTICAL SNIPER (100% INDEX-DRIVEN) -->
+    <!-- ========================================================================= -->
+    <section id="view-sniper" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">Single-Index Tactical Sniper</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">100% Index-Driven Decision Engine comparing Current Index vs All-Time High</p>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+          Guardrail 1 & 2 Enforced
+        </span>
+      </div>
+
+      <!-- ETF Selector Pills -->
+      <div class="flex flex-wrap items-center gap-2.5" id="sniper-ticker-pills">
+        <!-- Populated dynamically via renderSniperTickerPills() -->
+      </div>
+
+      <!-- Main Sniper Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+        
+        <!-- Controls & Parameter Card (Left 2 cols) -->
+        <div class="lg:col-span-2 hairline-card rounded-2xl p-6 sm:p-7 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <span id="sniper-card-title" class="text-base font-bold text-white font-sans tracking-tight">ICICIFIN</span>
+              <span id="sniper-card-desc" class="text-xs text-carbon-400 ml-2 font-sans">Nifty Financial Services Ex-Bank</span>
+            </div>
+            <span id="sniper-target-weight-badge" class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+              Base Target: 32.0%
+            </span>
+          </div>
+
+          <!-- Index Valuation Inputs (ATH vs Live Index) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <div class="space-y-2">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Index All-Time High (ATH)</span>
+                <span class="text-[11px] text-carbon-500">Benchmark Peak</span>
+              </label>
+              <input type="number" id="sniper-input-ath" step="any"
+                oninput="handleSniperInput()"
+                class="w-full bg-carbon-850 border border-carbon-700 rounded-lg px-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Current Index Level</span>
+                <span class="text-[11px] text-carbon-500">Live Spot</span>
+              </label>
+              <input type="number" id="sniper-input-price" step="any"
+                oninput="handleSniperInput()"
+                class="w-full bg-carbon-850 border border-carbon-700 rounded-lg px-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+            </div>
+
+          </div>
+
+          <!-- What-If Drop Preview Slider (Non-Destructive Simulation) -->
+          <div class="p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 space-y-3.5 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="text-xs font-bold text-white font-sans tracking-tight">What-If Drop Preview Slider (Non-Destructive)</span>
+                <span id="whatif-drop-badge" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-carbon-800 text-carbon-300 border border-carbon-700 font-bold tabular-nums">
+                  0.0% Drop
+                </span>
+              </div>
+              <button onclick="resetSniperWhatIf()" class="px-2.5 py-1 rounded-md bg-carbon-800 hover:bg-carbon-700 text-carbon-300 hover:text-white text-[11px] font-mono transition border border-carbon-700 shadow-sm">
+                Reset to Saved Price
+              </button>
+            </div>
+
+            <input type="range" id="sniper-whatif-slider" min="0" max="40" step="0.5" value="0"
+              oninput="handleSniperWhatIf(this.value)" class="w-full" />
+
+            <div class="flex justify-between text-[11px] font-mono text-carbon-400">
+              <span>0% (Peak ATH)</span>
+              <span id="whatif-sim-price" class="text-carbon-200 font-bold tabular-nums">Simulated Index: —</span>
+              <span>-40% (Mega Crash)</span>
+            </div>
+          </div>
+
+          <!-- Guardrail 2 Hysteresis Toggle -->
+          <div class="p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+            <div class="space-y-1 max-w-md">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white font-sans tracking-tight">Guardrail 2: L1 Hysteresis Lock</span>
+                <span id="sniper-lock-status-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-carbon-800 text-carbon-400 border border-carbon-700 font-bold uppercase tracking-wider">
+                  UNLOCKED
+                </span>
+              </div>
+              <p class="text-xs text-carbon-300 leading-relaxed font-sans">
+                Prevents repeat buying in sideways choppy markets. Locks after 1st L1 purchase until a new ATH or L2 crash escalation.
+              </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button onclick="markL1BoughtAndLock()" class="px-3 py-1.5 rounded-lg bg-carbon-800 hover:bg-carbon-700 text-carbon-200 text-xs font-mono border border-carbon-600 transition shadow-sm font-semibold">
+                Mark L1 as Bought
+              </button>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="sniper-lock-toggle" onchange="toggleL1Lock()" class="sr-only peer" />
+                <div class="w-10 h-5 bg-carbon-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-carbon-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Trigger Levels Reference Box -->
+          <div class="space-y-2.5 pt-2">
+            <span class="text-[11px] font-mono text-carbon-400 uppercase tracking-wider font-semibold">Target Entry Tranches:</span>
+            <div id="sniper-trigger-levels-box" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+              <!-- Populated dynamically via updateSniperView() -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Visual Gauge & Tactical Decision Card (Right 1 col) -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between space-y-5">
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-carbon-700/80">
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Tactical Range Gauge</h3>
+              <span id="sniper-gauge-drop-pct" class="text-xs font-mono text-emerald-400 font-bold tabular-nums">0.0% Dip</span>
+            </div>
+
+            <!-- Sleek Gauge Bar -->
+            <div class="space-y-2">
+              <div class="relative w-full h-3.5 rounded-full bg-carbon-800 overflow-hidden border border-carbon-700">
+                <div class="absolute inset-y-0 left-0 w-1/4 bg-carbon-700"></div>
+                <div class="absolute inset-y-0 left-1/4 w-1/4 bg-emerald-500/40"></div>
+                <div class="absolute inset-y-0 left-2/4 w-1/4 bg-amber-500/40"></div>
+                <div class="absolute inset-y-0 left-3/4 w-1/4 bg-rose-500/50"></div>
+                <div id="gauge-needle" class="absolute top-0 bottom-0 w-1 bg-white shadow-sm transition-all duration-300" style="left: 0%;"></div>
+              </div>
+              <div class="flex justify-between text-[10px] font-mono text-carbon-400">
+                <span>ATH</span>
+                <span>L1 Dip</span>
+                <span>L2 Crash</span>
+                <span>L3 Mega</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decision Action Box -->
+          <div class="p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 space-y-3.5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-carbon-400 uppercase font-semibold tracking-wider">Current Directive:</span>
+              <span id="sniper-decision-badge" class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-carbon-800 text-carbon-300 border border-carbon-700">
+                EVALUATING
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="text-[11px] text-carbon-400 font-mono">Suggested Capital Deployment:</div>
+              <div id="sniper-deploy-amount" class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-tight tabular-nums">₹0</div>
+              <div class="text-[11px] font-mono text-emerald-400/90">Exact allocation into mapped ETF bucket</div>
+            </div>
+
+            <p id="sniper-decision-explanation" class="text-xs text-carbon-300 font-sans leading-relaxed pt-3 border-t border-carbon-700/80">
+              <!-- Quantitative rationale -->
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>

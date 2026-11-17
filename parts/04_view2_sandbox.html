@@ -1,0 +1,500 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: INTERACTIVE BACKTEST SANDBOX & FUTURE WEALTH PROJECTOR -->
+    <!-- ========================================================================= -->
+    <section id="view-sandbox" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <!-- Prominent Mode Switcher Tab Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">Quantitative Simulation Terminal</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">Select between historical empirical audit or forward-looking compounding projection</p>
+        </div>
+
+        <div class="inline-flex p-1 rounded-xl bg-carbon-900 border border-carbon-700/80 shadow-inner">
+          <button id="sim-mode-btn-a" onclick="switchSimMode('mode-a')" class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-carbon-800 text-emerald-400 border border-carbon-600/80 shadow-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Mode A: 21.5Y Historical Backtest</span>
+          </button>
+          <button id="sim-mode-btn-b" onclick="switchSimMode('mode-b')" class="px-4 py-2 rounded-lg text-xs font-semibold transition-all text-carbon-400 hover:text-white flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span>Mode B: Future Wealth Projector</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- MODE A CONTAINER: 21.5-YEAR HISTORICAL BACKTEST (2005 - 2026) -->
+      <!-- ===================================================================== -->
+      <div id="sim-mode-container-a" class="space-y-8 sm:space-y-10">
+        
+        <!-- Controls Card -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-sm font-bold text-white font-sans tracking-tight">Historical Backtest Parameters</span>
+              <span class="text-[11px] font-mono text-carbon-400 hidden sm:inline">(260 Months Real NSE Index Data)</span>
+            </div>
+            
+            <!-- Quick Preset Date Pills -->
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-[11px] font-mono text-carbon-400 mr-1">Presets:</span>
+              <button onclick="setSandboxPreset('full')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-200 text-xs font-mono transition">
+                Full 21.5Y
+              </button>
+              <button onclick="setSandboxPreset('fold1')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-200 text-xs font-mono transition">
+                Fold-1 (05-16)
+              </button>
+              <button onclick="setSandboxPreset('fold2')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-200 text-xs font-mono transition">
+                Fold-2 (16-26)
+              </button>
+              <button onclick="setSandboxPreset('gfc')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-200 text-xs font-mono transition">
+                2008 GFC
+              </button>
+              <button onclick="setSandboxPreset('covid')" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-200 text-xs font-mono transition">
+                2020 Covid
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            
+            <!-- Monthly SIP Input -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Monthly SIP Inflow</span>
+                <span class="text-[11px] text-carbon-500">₹/mo</span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-carbon-400 font-mono text-xs font-bold">₹</span>
+                <input type="number" id="sim-input-sip" value="20000" min="1000" step="any"
+                  oninput="runRealTimeSimulation()"
+                  class="w-full bg-carbon-850 border border-carbon-700 rounded-lg pl-8 pr-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+              </div>
+            </div>
+
+            <!-- Initial Lump Sum Input -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-mono font-medium text-carbon-300 flex items-center justify-between">
+                <span>Initial Lump Sum</span>
+                <span class="text-[11px] text-carbon-500">Day-0 War-Chest</span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-carbon-400 font-mono text-xs font-bold">₹</span>
+                <input type="number" id="sim-input-lump" value="0" min="0" step="any"
+                  oninput="runRealTimeSimulation()"
+                  class="w-full bg-carbon-850 border border-carbon-700 rounded-lg pl-8 pr-3 py-2 text-xs font-mono text-white font-bold focus:outline-none transition" />
+              </div>
+            </div>
+
+            <!-- Start Date Selector -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-mono font-medium text-carbon-300">Backtest Inception Date</label>
+              <select id="sim-select-start" onchange="runRealTimeSimulation()"
+                class="w-full bg-carbon-850 border border-carbon-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none transition">
+                <!-- Populated dynamically via initSandboxSelectors() -->
+              </select>
+            </div>
+
+            <!-- End Date Selector -->
+            <div class="space-y-1.5">
+              <label class="text-xs font-mono font-medium text-carbon-300">Backtest Termination Date</label>
+              <select id="sim-select-end" onchange="runRealTimeSimulation()"
+                class="w-full bg-carbon-850 border border-carbon-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none transition">
+                <!-- Populated dynamically via initSandboxSelectors() -->
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Strategy Overlay Toggles -->
+          <div class="pt-3 flex flex-wrap items-center gap-5 text-xs font-mono border-t border-carbon-700/60">
+            <span class="text-[11px] text-carbon-400 font-sans uppercase font-bold tracking-wider">Compare Models:</span>
+            
+            <label class="inline-flex items-center gap-2 cursor-pointer text-emerald-400 font-semibold">
+              <input type="checkbox" id="sim-chk-v6" checked onchange="runRealTimeSimulation()" class="rounded bg-carbon-850 border-carbon-700 text-emerald-500 focus:ring-0 focus:ring-offset-0" />
+              <span>LOCKED V6 Final</span>
+            </label>
+
+            <label class="inline-flex items-center gap-2 cursor-pointer text-carbon-300 hover:text-white transition">
+              <input type="checkbox" id="sim-chk-sip" checked onchange="runRealTimeSimulation()" class="rounded bg-carbon-850 border-carbon-700 text-carbon-500 focus:ring-0 focus:ring-offset-0" />
+              <span>Regular Equal SIP</span>
+            </label>
+
+            <label class="inline-flex items-center gap-2 cursor-pointer text-carbon-400 hover:text-white transition">
+              <input type="checkbox" id="sim-chk-v1" onchange="runRealTimeSimulation()" class="rounded bg-carbon-850 border-carbon-700 text-indigo-500 focus:ring-0 focus:ring-offset-0" />
+              <span>V1 Silo</span>
+            </label>
+
+            <label class="inline-flex items-center gap-2 cursor-pointer text-carbon-400 hover:text-white transition">
+              <input type="checkbox" id="sim-chk-v3" onchange="runRealTimeSimulation()" class="rounded bg-carbon-850 border-carbon-700 text-amber-500 focus:ring-0 focus:ring-offset-0" />
+              <span>V3 3-Tier</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Real-Time Simulation Comparison KPI Ribbon -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Simulated V6 Corpus</div>
+            <div id="sim-res-v6-corpus" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-2 tabular-nums tracking-tight">₹3.22 Cr</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 space-y-1">
+              <div class="text-xs text-carbon-300 flex items-center justify-between font-mono">
+                <span class="text-carbon-400">XIRR:</span>
+                <span id="sim-res-v6-xirr" class="text-emerald-400 font-bold tabular-nums">14.61%</span>
+              </div>
+              <div id="sim-res-v6-tri" class="text-[10px] text-carbon-500 font-mono tabular-nums">~15.81% Est. TRI</div>
+            </div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Regular SIP Corpus</div>
+            <div id="sim-res-sip-corpus" class="text-2xl sm:text-3xl font-extrabold text-carbon-200 font-mono mt-2 tabular-nums tracking-tight">₹2.91 Cr</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 space-y-1">
+              <div class="text-xs text-carbon-300 flex items-center justify-between font-mono">
+                <span class="text-carbon-400">XIRR:</span>
+                <span id="sim-res-sip-xirr" class="text-carbon-200 font-semibold tabular-nums">13.86%</span>
+              </div>
+              <div id="sim-res-alpha-badge" class="text-[10px] text-emerald-400 font-semibold font-mono tabular-nums">+₹31.0L Alpha</div>
+            </div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Max Drawdown</div>
+            <div id="sim-res-v6-dd" class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono mt-2 tabular-nums tracking-tight">-54.1%</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 space-y-1">
+              <div class="text-xs text-carbon-300 flex items-center justify-between font-mono">
+                <span class="text-carbon-400">Equal SIP DD:</span>
+                <span id="sim-res-sip-dd" class="text-rose-400 font-semibold tabular-nums">-58.7%</span>
+              </div>
+              <div class="text-[10px] text-cyan-400 font-mono font-medium">4.6% Cushion in 2008 GFC</div>
+            </div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Executed Trades</div>
+            <div id="sim-res-trade-count" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono mt-2 tabular-nums tracking-tight">383 Trades</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 space-y-1">
+              <div class="text-xs text-carbon-300 flex items-center justify-between font-mono">
+                <span class="text-carbon-400">Principal:</span>
+                <span id="sim-res-principal" class="text-carbon-200 tabular-nums">₹52.00 L</span>
+              </div>
+              <div class="text-[10px] text-carbon-500 font-mono">Whole ETF share math</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Chart.js 260-Month Trajectory -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Simulated Wealth Trajectory</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">260-Month dynamic client-side compounding (6.2% liquid yield on idle cash)</p>
+            </div>
+            <span id="sim-period-badge" class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+              2005-04 to 2026-11
+            </span>
+          </div>
+          
+          <div class="h-80 sm:h-96 w-full relative">
+            <canvas id="sandboxChart"></canvas>
+          </div>
+        </div>
+
+        <!-- 260-Month Filterable Execution Trade Log -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Historical Execution Trade Log</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Filter and audit all disciplined tranches fired during market crashes</p>
+            </div>
+
+            <!-- Ticker & Level Filters -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="inline-flex rounded-lg bg-carbon-850 p-1 border border-carbon-700 text-xs font-mono shadow-sm">
+                <button onclick="filterTradeLog('ALL')" class="trade-log-filter px-2.5 py-1 rounded bg-carbon-800 text-white font-bold" data-ticker="ALL">ALL</button>
+                <button onclick="filterTradeLog('ICICIFIN')" class="trade-log-filter px-2.5 py-1 rounded text-carbon-400 hover:text-white" data-ticker="ICICIFIN">ICICIFIN</button>
+                <button onclick="filterTradeLog('MAM150ETF')" class="trade-log-filter px-2.5 py-1 rounded text-carbon-400 hover:text-white" data-ticker="MAM150ETF">MAM150</button>
+                <button onclick="filterTradeLog('BANKIETF')" class="trade-log-filter px-2.5 py-1 rounded text-carbon-400 hover:text-white" data-ticker="BANKIETF">BANK</button>
+                <button onclick="filterTradeLog('ICICINXT50')" class="trade-log-filter px-2.5 py-1 rounded text-carbon-400 hover:text-white" data-ticker="ICICINXT50">NXT50</button>
+                <button onclick="filterTradeLog('HDFCSML250')" class="trade-log-filter px-2.5 py-1 rounded text-carbon-400 hover:text-white" data-ticker="HDFCSML250">SML250</button>
+              </div>
+
+              <select id="trade-log-trigger-select" onchange="filterTradeLogByTrigger(this.value)"
+                class="bg-carbon-850 border border-carbon-700 rounded-lg px-3 py-1.5 text-xs font-mono text-carbon-200 focus:outline-none shadow-sm">
+                <option value="ALL">All Triggers</option>
+                <option value="L1">L1 Dip Only</option>
+                <option value="L2">L2 Crash Only</option>
+                <option value="L3">L3 Mega Only</option>
+                <option value="REDIRECT">Guardrail 4 Redirects</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto max-h-96 overflow-y-auto rounded-xl border border-carbon-800/80">
+            <table class="w-full text-left text-xs font-mono border-collapse">
+              <thead class="sticky top-0 bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+                <tr>
+                  <th class="py-3 px-4 font-sans font-semibold">Month</th>
+                  <th class="py-3 px-4 font-sans font-semibold">ETF Ticker</th>
+                  <th class="py-3 px-3 font-semibold">Trigger Level</th>
+                  <th class="py-3 px-3 font-semibold text-right">Dip Depth</th>
+                  <th class="py-3 px-3 font-semibold text-right">Deploy Amount</th>
+                  <th class="py-3 px-3 font-semibold text-right">Whole Units</th>
+                  <th class="py-3 px-4 font-sans font-semibold">Quantitative Rationale</th>
+                </tr>
+              </thead>
+              <tbody id="sim-trade-log-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+                <!-- Populated dynamically via runRealTimeSimulation() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- MODE B CONTAINER: FUTURE WEALTH & CUSTOM XIRR PROJECTOR (NEW) -->
+      <!-- ===================================================================== -->
+      <div id="sim-mode-container-b" class="hidden space-y-8 sm:space-y-10">
+        
+        <!-- Controls Card with Synced Sliders & Inputs -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span class="text-sm font-bold text-white font-sans tracking-tight">Future Wealth Compounding Engine</span>
+              <span class="text-[11px] font-mono text-carbon-400 hidden sm:inline">(Custom XIRR & Step-Up Projections)</span>
+            </div>
+
+            <!-- Quick Horizon Pills -->
+            <div class="flex items-center gap-1.5">
+              <span class="text-[11px] font-mono text-carbon-400 mr-1">Horizon:</span>
+              <button onclick="setProjYears(5)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-300 text-xs font-mono transition">5Y</button>
+              <button onclick="setProjYears(10)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-300 text-xs font-mono transition">10Y</button>
+              <button onclick="setProjYears(15)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-300 text-xs font-mono transition">15Y</button>
+              <button onclick="setProjYears(20)" class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold transition">20Y</button>
+              <button onclick="setProjYears(25)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-300 text-xs font-mono transition">25Y</button>
+              <button onclick="setProjYears(30)" class="px-2.5 py-1 rounded-md bg-carbon-850 hover:bg-carbon-800 border border-carbon-700 text-carbon-300 text-xs font-mono transition">30Y</button>
+            </div>
+          </div>
+
+          <!-- 6 Synced Slider + Numeric Input Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            
+            <!-- 1. Monthly SIP Contribution -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-carbon-200 font-semibold font-sans">Monthly SIP Contribution</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-carbon-400 font-mono text-xs font-bold">₹</span>
+                  <input type="number" id="proj-sip" value="20000" min="1000" max="500000" step="any"
+                    oninput="syncProjInput('sip', this.value)"
+                    class="w-28 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-emerald-400 font-bold text-right focus:outline-none" />
+                </div>
+              </div>
+              <input type="range" id="proj-sip-range" value="20000" min="1000" max="200000" step="1000"
+                oninput="syncProjInput('sip', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>₹1,000</span>
+                <span>₹2,00,000</span>
+              </div>
+            </div>
+
+            <!-- 2. Initial Lump Sum Investment -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-carbon-200 font-semibold font-sans">Initial Lump Sum</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-carbon-400 font-mono text-xs font-bold">₹</span>
+                  <input type="number" id="proj-lump" value="0" min="0" max="5000000" step="any"
+                    oninput="syncProjInput('lump', this.value)"
+                    class="w-28 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-white font-bold text-right focus:outline-none" />
+                </div>
+              </div>
+              <input type="range" id="proj-lump-range" value="0" min="0" max="2500000" step="25000"
+                oninput="syncProjInput('lump', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>₹0</span>
+                <span>₹25,00,000</span>
+              </div>
+            </div>
+
+            <!-- 3. Annual SIP Step-Up (%) -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-carbon-200 font-semibold font-sans">Annual SIP Step-Up</span>
+                <div class="flex items-center gap-1.5">
+                  <input type="number" id="proj-stepup" value="0" min="0" max="25" step="any"
+                    oninput="syncProjInput('stepup', this.value)"
+                    class="w-20 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-cyan-400 font-bold text-right focus:outline-none" />
+                  <span class="text-carbon-400 font-mono text-xs font-bold">%</span>
+                </div>
+              </div>
+              <input type="range" id="proj-stepup-range" value="0" min="0" max="25" step="1"
+                oninput="syncProjInput('stepup', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>0% (Flat)</span>
+                <span>25% / yr</span>
+              </div>
+            </div>
+
+            <!-- 4. Expected Custom V6 XIRR (%) -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span class="text-carbon-200 font-semibold font-sans">Custom V6 XIRR</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input type="number" id="proj-xirr-v6" value="15.81" min="8.0" max="25.0" step="any"
+                    oninput="syncProjInput('xirr-v6', this.value)"
+                    class="w-24 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-emerald-400 font-bold text-right focus:outline-none" />
+                  <span class="text-carbon-400 font-mono text-xs font-bold">%</span>
+                </div>
+              </div>
+              <input type="range" id="proj-xirr-v6-range" value="15.81" min="8.0" max="25.0" step="0.1"
+                oninput="syncProjInput('xirr-v6', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>8.0%</span>
+                <span class="text-emerald-400 font-semibold">15.81% (V6 TRI)</span>
+                <span>25.0%</span>
+              </div>
+            </div>
+
+            <!-- 5. Benchmark Regular SIP XIRR (%) -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                  <span class="text-carbon-200 font-semibold font-sans">Benchmark SIP XIRR</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input type="number" id="proj-xirr-bm" value="14.50" min="6.0" max="20.0" step="any"
+                    oninput="syncProjInput('xirr-bm', this.value)"
+                    class="w-24 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-indigo-400 font-bold text-right focus:outline-none" />
+                  <span class="text-carbon-400 font-mono text-xs font-bold">%</span>
+                </div>
+              </div>
+              <input type="range" id="proj-xirr-bm-range" value="14.50" min="6.0" max="20.0" step="0.1"
+                oninput="syncProjInput('xirr-bm', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>6.0%</span>
+                <span class="text-indigo-400 font-semibold">14.50% (Standard)</span>
+                <span>20.0%</span>
+              </div>
+            </div>
+
+            <!-- 6. Investment Horizon (Years) -->
+            <div class="space-y-3 p-4 sm:p-5 rounded-xl bg-carbon-850/90 border border-carbon-700/80 shadow-sm">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-carbon-200 font-semibold font-sans">Investment Horizon</span>
+                <div class="flex items-center gap-1.5">
+                  <input type="number" id="proj-years" value="20" min="1" max="35" step="1"
+                    oninput="syncProjInput('years', this.value)"
+                    class="w-20 bg-carbon-900 border border-carbon-700 rounded-lg px-2.5 py-1 text-xs font-mono text-white font-bold text-right focus:outline-none" />
+                  <span class="text-carbon-400 font-mono text-xs font-bold">Yrs</span>
+                </div>
+              </div>
+              <input type="range" id="proj-years-range" value="20" min="1" max="35" step="1"
+                oninput="syncProjInput('years', this.value)" class="w-full" />
+              <div class="flex justify-between text-[11px] font-mono text-carbon-500">
+                <span>1 Year</span>
+                <span>35 Years</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Future Wealth 4 Headline KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Total Invested Principal</div>
+            <div id="proj-kpi-invested" class="text-2xl sm:text-3xl font-extrabold text-carbon-200 font-mono mt-2 tabular-nums tracking-tight">₹48,00,000</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 text-[11px] text-carbon-400 font-mono">Disciplined contributions</div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 border-l-4 border-l-emerald-500 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Projected V6 Final Corpus</div>
+            <div id="proj-kpi-v6" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-2 tabular-nums tracking-tight">₹3,46,82,910</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 text-[11px] text-emerald-400/90 font-mono font-medium">Compounded at custom XIRR</div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Total Wealth Gain</div>
+            <div id="proj-kpi-gain" class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono mt-2 tabular-nums tracking-tight">₹2,98,82,910</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 text-[11px] text-carbon-400 font-mono">Net compounding profit</div>
+          </div>
+
+          <div class="hairline-card rounded-2xl p-5 sm:p-6 border-l-4 border-l-cyan-500 relative group hover:border-carbon-600 transition-all">
+            <div class="text-[11px] font-mono font-semibold text-carbon-400 uppercase tracking-wider">Net Alpha vs Regular SIP</div>
+            <div id="proj-kpi-alpha" class="text-2xl sm:text-3xl font-extrabold text-cyan-300 font-mono mt-2 tabular-nums tracking-tight">+₹54,20,190</div>
+            <div class="pt-3 mt-3 border-t border-carbon-800/80 text-[11px] text-cyan-400/90 font-mono font-medium">Asymmetric deployment alpha</div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Chart.js Multi-Line Projection Graph -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Compounding Wealth Trajectory</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Invested Capital vs Benchmark Regular SIP vs Custom V6 Projected Corpus</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="flex items-center gap-2 text-emerald-400 font-bold">
+                <span class="w-3 h-1 bg-emerald-400 inline-block rounded-full"></span> V6 Projected
+              </span>
+              <span class="flex items-center gap-2 text-indigo-400 font-bold">
+                <span class="w-3 h-1 bg-indigo-400 inline-block rounded-full"></span> Benchmark SIP
+              </span>
+              <span class="flex items-center gap-2 text-carbon-400">
+                <span class="w-3 h-1 bg-carbon-500 inline-block rounded-full"></span> Invested
+              </span>
+            </div>
+          </div>
+
+          <div class="h-80 sm:h-96 w-full relative">
+            <canvas id="projectorChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Year-by-Year Compounding Schedule Table -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Year-by-Year Compounding Breakdown</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Detailed schedule of annual contributions, benchmark value, and strategy alpha</p>
+            </div>
+            <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+              Annual Compounding Table
+            </span>
+          </div>
+
+          <div class="overflow-x-auto max-h-96 overflow-y-auto rounded-xl border border-carbon-800/80">
+            <table class="w-full text-left text-xs font-mono border-collapse">
+              <thead class="sticky top-0 bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+                <tr>
+                  <th class="py-3 px-4 font-sans font-semibold">Year</th>
+                  <th class="py-3 px-3 font-semibold text-right">Monthly SIP</th>
+                  <th class="py-3 px-3 font-semibold text-right">Annual Contribution</th>
+                  <th class="py-3 px-3 font-semibold text-right">Cumulative Invested</th>
+                  <th class="py-3 px-3 font-semibold text-right text-indigo-400">Benchmark SIP Value</th>
+                  <th class="py-3 px-3 font-semibold text-right text-emerald-400 font-bold">V6 Projected Value</th>
+                  <th class="py-3 px-4 font-semibold text-right text-cyan-400 font-bold">Net Wealth Gain</th>
+                </tr>
+              </thead>
+              <tbody id="proj-schedule-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+                <!-- Populated dynamically via runFutureWealthProjection() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section>

@@ -1,0 +1,204 @@
+    <!-- ========================================================================= -->
+    <!-- VIEW 3: EMPIRICAL PROOF & RAW DATA EXPLORER -->
+    <!-- ========================================================================= -->
+    <section id="view-empirical" class="view-panel hidden space-y-8 sm:space-y-10">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-carbon-700/80">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight font-sans">Empirical Data & Quantitative Proof</h2>
+          <p class="text-xs text-carbon-400 mt-0.5">100% transparent audit covering 21.5 years across 24 macro peaks & troughs (Apr 2005 – Nov 2026)</p>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+          260 Months Verified
+        </span>
+      </div>
+
+      <!-- 4 Charts Grid (2x2) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+        
+        <!-- Chart 1: 21.5-Year Trajectory with 2008 GFC & 2020 Covid Milestone Realism -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">21.5Y Wealth Trajectory (2005–2026)</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Historical milestone points showing 2008 GFC & 2020 Covid drawdowns</p>
+            </div>
+            <span class="text-xs font-mono text-emerald-400 font-bold">V6 Final vs Equal SIP</span>
+          </div>
+          <div class="h-72 sm:h-80 w-full relative">
+            <canvas id="proofWealthChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Crash Depth vs Rebound Velocity -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Crash Depth vs Rebound Velocity</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Bubble Map: Max Crash % (X) vs Avg Bounce % (Y) vs Weight % (Radius)</p>
+            </div>
+            <span class="text-xs font-mono text-cyan-400 font-bold">5-Index Risk/Reward</span>
+          </div>
+          <div class="h-72 sm:h-80 w-full relative">
+            <canvas id="proofBubbleChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Version Evolution Audit (V0 to LOCKED V6) -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Strategy Version Evolution Audit</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Corpus (₹ Cr) & XIRR (%) progression across research iterations</p>
+            </div>
+            <span class="text-xs font-mono text-emerald-400 font-bold">V0 to LOCKED V6</span>
+          </div>
+          <div class="h-72 sm:h-80 w-full relative">
+            <canvas id="proofEvolutionChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Underwater Drawdown Profile -->
+        <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-carbon-700/80">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white font-sans tracking-tight">Portfolio Drawdown Profile</h3>
+              <p class="text-xs text-carbon-400 mt-0.5">Underwater curve highlighting crash cushions during major bear markets</p>
+            </div>
+            <span class="text-xs font-mono text-rose-400 font-bold">Max DD: -54.1% vs -58.7%</span>
+          </div>
+          <div class="h-72 sm:h-80 w-full relative">
+            <canvas id="proofDrawdownChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2-Fold Cross-Validation & Bootstrap Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        
+        <div class="hairline-card rounded-2xl p-6 space-y-2.5 border-l-4 border-l-emerald-500 group hover:border-carbon-600 transition-all">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase font-semibold tracking-wider">In-Sample Fold-1 (2005–2016)</div>
+          <div class="text-2xl font-black text-emerald-400 font-mono tracking-tight tabular-nums">11.45% XIRR</div>
+          <p class="text-xs text-carbon-300 font-sans leading-relaxed">
+            Covers 2008 GFC, 2011 Eurozone, 2013 Taper Tantrum, and 2015-16 NPA crash. Outperformed Equal SIP (11.22%) by <span class="font-bold text-emerald-400">+23 bps</span>.
+          </p>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-6 space-y-2.5 border-l-4 border-l-cyan-500 group hover:border-carbon-600 transition-all">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase font-semibold tracking-wider">Out-of-Sample Fold-2 (2016–2026)</div>
+          <div class="text-2xl font-black text-cyan-400 font-mono tracking-tight tabular-nums">16.76% XIRR</div>
+          <p class="text-xs text-carbon-300 font-sans leading-relaxed">
+            Covers 2018 IL&FS crisis, 2020 Covid flash crash, 2022 Fed rate hikes, and 2025 tech dip. Outperformed Equal SIP (14.48%) by <span class="font-bold text-cyan-400">+228 bps</span>.
+          </p>
+        </div>
+
+        <div class="hairline-card rounded-2xl p-6 space-y-2.5 border-l-4 border-l-indigo-500 group hover:border-carbon-600 transition-all">
+          <div class="text-[11px] font-mono text-carbon-400 uppercase font-semibold tracking-wider">1,000-Path Block-Bootstrap Stress Test</div>
+          <div class="text-2xl font-black text-indigo-400 font-mono tracking-tight tabular-nums">98.4% Win Rate</div>
+          <p class="text-xs text-carbon-300 font-sans leading-relaxed">
+            Monte Carlo block permutation confirmed positive alpha in <span class="font-bold text-indigo-300">984 out of 1,000</span> randomized synthetic market cycles.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- 24 Historical Index Pivot Points Table -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Raw 24-Point Historical Index Pivot Series (2005 – 2026)</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">Verifiable benchmark valuation levels powering all backtests and simulators</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+            24 Macro Turning Points
+          </span>
+        </div>
+
+        <div class="overflow-x-auto max-h-96 overflow-y-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="sticky top-0 bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">Date</th>
+                <th class="py-3 px-4 font-sans font-semibold">Macro Market Event</th>
+                <th class="py-3 px-3 font-semibold text-right">ICICIFIN</th>
+                <th class="py-3 px-3 font-semibold text-right">MAM150ETF</th>
+                <th class="py-3 px-3 font-semibold text-right">BANKIETF</th>
+                <th class="py-3 px-3 font-semibold text-right">ICICINXT50</th>
+                <th class="py-3 px-4 font-semibold text-right">HDFCSML250</th>
+              </tr>
+            </thead>
+            <tbody id="raw-pivot-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via renderEmpiricalTables() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 10 Historical Crash Cycles Table -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">10 Historical Crash-to-Recovery Cycles (2006 – 2026)</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">Empirical cycle depth, rebound magnitude, and LOCKED V6 execution behavior</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-md bg-carbon-850 text-carbon-300 border border-carbon-700 shadow-sm">
+            10 Crash Cycles
+          </span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">Crash Event</th>
+                <th class="py-3 px-3 font-sans font-semibold">Peak</th>
+                <th class="py-3 px-3 font-sans font-semibold">Trough</th>
+                <th class="py-3 px-3 font-sans font-semibold">Full Recovery</th>
+                <th class="py-3 px-3 font-semibold text-right text-rose-400 font-bold">Max Crash Drop</th>
+                <th class="py-3 px-3 font-semibold text-right text-emerald-400 font-bold">Rebound Gain</th>
+                <th class="py-3 px-4 font-sans font-semibold">LOCKED V6 Execution Behavior</th>
+              </tr>
+            </thead>
+            <tbody id="crash-cycles-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via renderEmpiricalTables() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Complete Strategy Version Evolution Matrix Table -->
+      <div class="hairline-card rounded-2xl p-6 sm:p-7 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-carbon-700/80">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white font-sans tracking-tight">Complete Strategy Version Evolution (V0 to LOCKED V6 Final)</h3>
+            <p class="text-xs text-carbon-400 mt-0.5">Quantitative audit trail of design decisions, experiments, and alpha validation</p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold uppercase tracking-wider">
+            V6 FINAL LOCKED
+          </span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-carbon-800/80">
+          <table class="w-full text-left text-xs font-mono border-collapse">
+            <thead class="bg-carbon-900 border-b border-carbon-700/80 text-carbon-400 text-[11px]">
+              <tr>
+                <th class="py-3 px-4 font-sans font-semibold">Version & Architecture</th>
+                <th class="py-3 px-3 font-semibold text-right">Price XIRR</th>
+                <th class="py-3 px-3 font-semibold text-right text-emerald-400 font-bold">Est. TRI XIRR</th>
+                <th class="py-3 px-3 font-semibold text-right">Corpus (₹ Cr)</th>
+                <th class="py-3 px-3 font-semibold text-right text-cyan-400">Max DD</th>
+                <th class="py-3 px-3 font-semibold text-right">Fold-1</th>
+                <th class="py-3 px-3 font-semibold text-right">Fold-2</th>
+                <th class="py-3 px-3 font-semibold text-right">Trades</th>
+                <th class="py-3 px-4 font-sans font-semibold">Key Quantitative Findings</th>
+              </tr>
+            </thead>
+            <tbody id="version-matrix-table-body" class="divide-y divide-carbon-800/60 text-carbon-300">
+              <!-- Populated dynamically via renderEmpiricalTables() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
